@@ -71,7 +71,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-0 sm:p-8">
       <style>{`
         @media print {
           html, body { margin: 0; padding: 0; background: white; }
@@ -90,10 +90,10 @@ export default function App() {
         }
       `}</style>
 
-      <div className="print-container w-[210mm] h-[297mm] bg-white shadow-2xl flex overflow-hidden">
+      <div className="print-container w-full max-w-[210mm] md:h-[297mm] bg-white shadow-2xl flex flex-col md:flex-row overflow-hidden">
 
         {/* Columna Izquierda - Sidebar */}
-        <div className="w-[35%] bg-gradient-to-b from-slate-800 to-slate-900 text-white p-8 flex flex-col">
+        <div className="w-full md:w-[35%] bg-gradient-to-b from-slate-800 to-slate-900 text-white p-6 sm:p-8 flex flex-col">
 
           {/* Foto de perfil con tu componente */}
           <div className="w-32 h-32 mx-auto mb-6 overflow-hidden rounded-full border-4 border-blue-500 flex-shrink-0">
@@ -170,18 +170,18 @@ export default function App() {
         </div>
 
         {/* Columna Derecha - Contenido Principal */}
-        <div className="w-[65%] p-8 flex flex-col">
+        <div className="w-full md:w-[65%] p-6 sm:p-8 flex flex-col">
 
           {/* Header con botón */}
-          <div className="relative mb-5">
-            <h1 className="text-4xl text-gray-800 mb-2">{personalInfo.name}</h1>
-            <p className="text-xl text-blue-600 mb-2">{personalInfo.title}</p>
+          <div className="relative mb-5 pr-12 sm:pr-0">
+            <h1 className="text-3xl sm:text-4xl text-gray-800 mb-2">{personalInfo.name}</h1>
+            <p className="text-lg sm:text-xl text-blue-600 mb-2">{personalInfo.title}</p>
             <button
               onClick={handleDownloadPDF}
-              className="no-print absolute top-0 right-0 bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition text-sm"
+              className="no-print absolute top-0 right-0 bg-blue-600 text-white p-2 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition text-sm"
             >
               <Download size={16} />
-              PDF
+              <span className="hidden sm:inline">PDF</span>
             </button>
           </div>
 
@@ -203,7 +203,7 @@ export default function App() {
             <div className="space-y-4">
               {experience.map((job, index) => (
                 <div key={index}>
-                  <div className="flex justify-between items-start mb-1">
+                  <div className="flex flex-col sm:flex-row justify-between items-start mb-1 gap-1">
                     <div>
                       <h3 className="text-gray-800 font-bold">{job.position}</h3>
                       <p className="text-blue-600 text-sm">{job.company}</p>
@@ -229,7 +229,7 @@ export default function App() {
               <Award size={20} className="text-blue-600" />
               <h2 className="text-xl text-gray-800 uppercase tracking-wide">Proyectos Destacados</h2>
             </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm">
               <div>
                 <h3 className="text-gray-800 font-bold">Sistema de Turnos</h3>
                 <p className="text-gray-600 text-xs mb-1 leading-tight">Integración de WhatsApp y Google Calendar para citas médicas.</p>
@@ -242,8 +242,8 @@ export default function App() {
               </div>
               <div>
                 <h3 className="text-gray-800 font-bold">Landing Page Comercial</h3>
-                <p className="text-gray-600 text-xs mb-1 leading-tight">Desarrollo de sitio web de alto rendimiento y carga rápida.</p>
-                <p className="text-xs text-blue-600 font-bold">Astro • JavaScript</p>
+                <p className="text-gray-600 text-xs mb-1 leading-tight">Desarrollo de sitios web de alto rendimiento y carga rápida.</p>
+                <p className="text-xs text-blue-600 font-bold">Astro • JavaScript • GitHub Pages</p>
               </div>
               <div>
                 <h3 className="text-gray-800 font-bold">Análisis REFES (Salud)</h3>
