@@ -9,7 +9,7 @@ export default function App() {
 
   const personalInfo = {
     name: "Tomás Gallastegui",
-    title: "Desarrollador Web & IT Support",
+    title: "Desarrollador Web Full Stack  &  Soporte IT",
     email: "gallasteguitomase@gmail.com",
     phone: "+54 9 264 415 2298",
     location: "San Juan, Argentina",
@@ -18,16 +18,23 @@ export default function App() {
     website: "tomasgallas.github.io"
   };
 
-  const summary = "Desarrollador de software e IT enfocado en soluciones a medida. Especializado en backend, sitios web y automatización para optimizar flujos de trabajo.";
+  const summary = "Técnico programador Web enfocado en soluciones a medida. Especializado en backend, sitios web, automatizaciónes, soporte TI,redes.";
 
   const experience = [
+    {
+      company: "Teatro del Bicentenario",
+      position: "Soporte IT",
+      period: "2026 - Actualidad",
+      achievements: [
+        "Administración y mantenimiento de la infraestructura de red, servidores, cámaras de videovigilancia y telefonía IP.",
+        "Resolución e instalación de hardware y software",      ]
+    },
     {
       company: "Laboratorio de Informática Aplicada (LIA) - UNSJ",
       position: "Soporte Técnico IT & Software",
       period: "2025 - Actualidad",
       achievements: [
-        "Mantenimiento y actualización de sistemas operativos basados en Linux (Ubuntu).",
-        "Instalación, actualización y despliegue de aplicaciones y entornos de desarrollo.",
+        "Mantenimiento y actualización de sistemas operativos basados en Linux (Ubuntu), aplicaciones.",
         "Soporte técnico de hardware y redes para garantizar la continuidad del laboratorio."
       ]
     },
@@ -37,7 +44,7 @@ export default function App() {
       period: "2025 - Actualidad",
       achievements: [
         "Apoyo pedagógico y técnico en la cátedra 'Estructura y Funcionamiento de la Computadora'.",
-        "Gestión y seguimiento de asistencia y datos de alumnos mediante automatizaciones en Google Forms y Excel.",
+        "Gestión y seguimiento de asistencia y datos de alumnos con Google Forms y Excel.",
       ]
     },
     {
@@ -55,26 +62,32 @@ export default function App() {
     {
       degree: "Licenciatura en Sistemas de Información",
       institution: "Universidad Nacional de San Juan",
-      period: "2026"
+      period: "2026 - En Curso"
     },
     {
       degree: "Técnico Universitario en Programación Web",
       institution: "Universidad Nacional de San Juan",
-      period: "2023-2025"
+      period: "2023 - 2026"
     }
   ];
 
   const skills = [
-    "JavaScript", "Python", "SQL", "HTML/CSS", "n8n", "Docker", "Supabase", 
+    "JavaScript", "Python", "SQL", "HTML/CSS", "n8n", "Docker", "Supabase", "React",
     "Pandas", "Streamlit", "Power BI", "Linux (Ubuntu)", "Git & GitHub", "Excel Avanzado", "Java", "Flutter",
     "Firebase", ".NET Core", "Astro"
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-0 sm:p-8">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-0 sm:p-8 print:bg-white print:p-0 print:block print:min-h-0">
       <style>{`
         @media print {
-          html, body { margin: 0; padding: 0; background: white; }
+          html, body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
           .no-print { display: none !important; }
           .print-container {
             width: 210mm;
@@ -82,6 +95,9 @@ export default function App() {
             margin: 0;
             padding: 0;
             box-shadow: none !important;
+            background-color: white !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
         }
         @page {
@@ -90,17 +106,104 @@ export default function App() {
         }
       `}</style>
 
-      <div className="print-container w-full max-w-[210mm] md:h-[297mm] bg-white shadow-2xl flex flex-col md:flex-row overflow-hidden">
+      <div className="print-container w-full max-w-[210mm] md:h-[297mm] bg-white shadow-2xl flex flex-col md:flex-row-reverse print:flex-row-reverse print:w-[210mm] print:h-[297mm] overflow-hidden">
 
-        {/* Columna Izquierda - Sidebar */}
-        <div className="w-full md:w-[35%] bg-gradient-to-b from-slate-800 to-slate-900 text-white p-6 sm:p-8 flex flex-col">
+        {/* Columna Derecha - Contenido Principal (Primera en DOM para ATS y accesibilidad) */}
+        <div className="w-full md:w-[65%] print:w-[65%] p-6 sm:p-8 print:p-8 flex flex-col">
+
+          {/* Header con botón */}
+          <div className="relative mb-5 pr-12 sm:pr-0 print:pr-0">
+            <h1 className="text-3xl sm:text-4xl print:text-4xl text-gray-800 mb-2">{personalInfo.name}</h1>
+            <p className="text-lg sm:text-xl print:text-xl text-blue-600 mb-2">{personalInfo.title}</p>
+            <button
+              onClick={handleDownloadPDF}
+              className="no-print absolute top-0 right-0 bg-blue-600 text-white p-2 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition text-sm"
+            >
+              <Download size={16} />
+              <span className="hidden sm:inline">PDF</span>
+            </button>
+          </div>
+
+          {/* Resumen */}
+          <div className="mb-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Code size={20} className="text-blue-600" />
+              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Perfil Profesional</h2>
+            </div>
+            <p className="text-gray-700 text-sm leading-relaxed">{summary}</p>
+          </div>
+
+          {/* Experiencia */}
+          <div className="mb-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Briefcase size={20} className="text-blue-600" />
+              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Experiencia Profesional</h2>
+            </div>
+            <div className="space-y-4">
+              {experience.map((job, index) => (
+                <div key={index}>
+                  <div className="flex flex-col sm:flex-row print:flex-row justify-between items-start print:items-center mb-1 gap-1">
+                    <div>
+                      <h3 className="text-gray-800 font-bold">{job.position}</h3>
+                      <p className="text-blue-600 text-sm">{job.company}</p>
+                    </div>
+                    <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded font-bold">{job.period}</span>
+                  </div>
+                  <ul className="space-y-1 text-sm text-gray-700">
+                    {job.achievements.map((achievement, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="leading-tight">{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Proyectos Destacados - Convertido a Grid de 2 columnas */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <Award size={20} className="text-blue-600" />
+              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Proyectos Destacados</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-x-4 gap-y-3 text-sm">
+              <div>
+                <h3 className="text-gray-800 font-bold">Agente IA</h3>
+                <p className="text-gray-600 text-xs mb-1 leading-tight">Integración de WhatsApp y Google Calendar para citas médicas mediante un agente de IA.</p>
+                <p className="text-xs text-blue-600 font-bold">n8n • WhatsApp API • Cloud</p>
+              </div>
+              <div>
+                <h3 className="text-gray-800 font-bold">LabsLia</h3>
+                <p className="text-gray-600 text-xs mb-1 leading-tight">Sistema de gestión de Laboratorios.
+                  Administración de recursos, inventario y usuarios.</p>
+                <p className="text-xs text-blue-600 font-bold">Java • MySQL • GlassFish</p>
+              </div>
+              <div>
+                <h3 className="text-gray-800 font-bold">Landing Pages</h3>
+                <p className="text-gray-600 text-xs mb-1 leading-tight">Sitios web de alto rendimiento y carga rápida.</p>
+                <p className="text-xs text-blue-600 font-bold">React/Astro • JavaScript   </p>
+              </div>
+              <div>
+                <h3 className="text-gray-800 font-bold">DeliCharly</h3>
+                <p className="text-gray-600 text-xs mb-1 leading-tight">Sistema de despacho de pedidos para restaurant, permite asignar y seguir el estado de los pedidos.</p>
+                <p className="text-xs text-blue-600 font-bold">Supabase • Astro • JavaScript • React</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Columna Izquierda - Sidebar (Segunda en DOM pero visualmente a la izquierda gracias a flex-row-reverse) */}
+        <div className="w-full md:w-[35%] print:w-[35%] bg-gradient-to-b from-slate-800 to-slate-900 text-white p-6 sm:p-8 print:p-8 flex flex-col">
 
           {/* Foto de perfil con tu componente */}
           <div className="w-32 h-32 mx-auto mb-6 overflow-hidden rounded-full border-4 border-blue-500 flex-shrink-0">
-            <ImageWithFallback 
-              src={fotoPerfil} 
+            <ImageWithFallback
+              src={fotoPerfil}
               alt="Foto de Tomás Gallastegui"
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -164,92 +267,6 @@ export default function App() {
                   <p className="text-gray-300 text-xs">{edu.institution}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-        </div>
-
-        {/* Columna Derecha - Contenido Principal */}
-        <div className="w-full md:w-[65%] p-6 sm:p-8 flex flex-col">
-
-          {/* Header con botón */}
-          <div className="relative mb-5 pr-12 sm:pr-0">
-            <h1 className="text-3xl sm:text-4xl text-gray-800 mb-2">{personalInfo.name}</h1>
-            <p className="text-lg sm:text-xl text-blue-600 mb-2">{personalInfo.title}</p>
-            <button
-              onClick={handleDownloadPDF}
-              className="no-print absolute top-0 right-0 bg-blue-600 text-white p-2 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition text-sm"
-            >
-              <Download size={16} />
-              <span className="hidden sm:inline">PDF</span>
-            </button>
-          </div>
-
-          {/* Resumen */}
-          <div className="mb-5">
-            <div className="flex items-center gap-2 mb-3">
-              <Code size={20} className="text-blue-600" />
-              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Perfil Profesional</h2>
-            </div>
-            <p className="text-gray-700 text-sm leading-relaxed">{summary}</p>
-          </div>
-
-          {/* Experiencia */}
-          <div className="mb-5">
-            <div className="flex items-center gap-2 mb-3">
-              <Briefcase size={20} className="text-blue-600" />
-              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Experiencia Profesional</h2>
-            </div>
-            <div className="space-y-4">
-              {experience.map((job, index) => (
-                <div key={index}>
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-1 gap-1">
-                    <div>
-                      <h3 className="text-gray-800 font-bold">{job.position}</h3>
-                      <p className="text-blue-600 text-sm">{job.company}</p>
-                    </div>
-                    <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded font-bold">{job.period}</span>
-                  </div>
-                  <ul className="space-y-1 text-sm text-gray-700">
-                    {job.achievements.map((achievement, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-1">•</span>
-                        <span className="leading-tight">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Proyectos Destacados - Convertido a Grid de 2 columnas */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Award size={20} className="text-blue-600" />
-              <h2 className="text-xl text-gray-800 uppercase tracking-wide">Proyectos Destacados</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm">
-              <div>
-                <h3 className="text-gray-800 font-bold">Sistema de Turnos</h3>
-                <p className="text-gray-600 text-xs mb-1 leading-tight">Integración de WhatsApp y Google Calendar para citas médicas.</p>
-                <p className="text-xs text-blue-600 font-bold">n8n • WhatsApp API • Cloud</p>
-              </div>
-              <div>
-                <h3 className="text-gray-800 font-bold">Gestión de Laboratorios</h3>
-                <p className="text-gray-600 text-xs mb-1 leading-tight">Administración de recursos, inventario y usuarios (LIA).</p>
-                <p className="text-xs text-blue-600 font-bold">Java • MySQL • GlassFish</p>
-              </div>
-              <div>
-                <h3 className="text-gray-800 font-bold">Landing Page Comercial</h3>
-                <p className="text-gray-600 text-xs mb-1 leading-tight">Desarrollo de sitios web de alto rendimiento y carga rápida.</p>
-                <p className="text-xs text-blue-600 font-bold">Astro • JavaScript • GitHub Pages</p>
-              </div>
-              <div>
-                <h3 className="text-gray-800 font-bold">Análisis REFES (Salud)</h3>
-                <p className="text-gray-600 text-xs mb-1 leading-tight">Dashboard para auditoría de establecimientos federales.</p>
-                <p className="text-xs text-blue-600 font-bold">Power BI</p>
-              </div>
             </div>
           </div>
 
